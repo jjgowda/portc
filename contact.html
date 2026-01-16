@@ -297,33 +297,6 @@
       nav.desktop { display: none; }
       .mobile-toggle { display: inline-flex; }
     }
-.theme-toggle {
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(12px);
-  border: 1.5px solid rgba(255,255,255,0.15);
-  color: var(--text-muted);
-  padding: 10px 16px;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: 600;
-  font-size: 13px;
-  transition: all 0.3s;
-}
-
-.theme-toggle:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-
-.mobile-toggle {
-  display: none;
-}
-
-@media (max-width: 820px) {
-  .mobile-toggle {
-    display: inline-flex;
-  }
-}
 
     /* ================================================
        PAGE HEADER
@@ -763,9 +736,8 @@
     </nav>
 
     <div class="controls">
-      <button id="themeBtn" class="theme-toggle" title="Toggle theme">Theme</button>
-<button id="mobileBtn" class="mobile-toggle">Menu</button>
-
+      <button id="themeBtn" title="Toggle theme" class="mobile-toggle">Theme</button>
+      <button id="mobileBtn" class="mobile-toggle">Menu</button>
     </div>
   </header>
 
@@ -775,7 +747,7 @@
       <a href="home.html" style="padding:14px 18px;border-radius:12px;font-weight:600">Home</a>
       <a href="about.html" style="padding:14px 18px;border-radius:12px;font-weight:600">About</a>
       <a href="projects.html" style="padding:14px 18px;border-radius:12px;font-weight:600">Projects</a>
- 
+   
       <a href="contact.html" style="padding:14px 18px;border-radius:12px;font-weight:600">Contact</a>
     </nav>
   </div>
@@ -996,13 +968,10 @@
     const mobileMenu = $('#mobileMenu');
 
     mobileBtn.addEventListener('click', () => {
-  const isOpen = mobileMenu.style.display === 'block';
-
-  mobileMenu.style.display = isOpen ? 'none' : 'block';
-  mobileBtn.textContent = isOpen ? 'Menu' : 'Close';
-  mobileBtn.setAttribute('aria-expanded', String(!isOpen));
-});
-
+      const isOpen = mobileMenu.style.display === 'block';
+      mobileMenu.style.display = isOpen ? 'none' : 'block';
+      mobileBtn.textContent = isOpen ? 'Menu' : 'Close';
+    });
 
     // ================================================
     // FORM VALIDATION & SUBMISSION
