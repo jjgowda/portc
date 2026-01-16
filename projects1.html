@@ -1,0 +1,1481 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Projects — Jeevan Gowda | Android & Full-Stack Developer</title>
+  <meta name="description" content="Portfolio of mobile and web applications built by Jeevan Gowda - Android apps, AI projects, and full-stack solutions">
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================================================
+       CSS CUSTOM PROPERTIES - THEME CONFIGURATION
+       Dark theme is default, light theme can be toggled
+       ================================================ */
+    :root {
+      /* Background colors - deep navy blues for dark mode */
+      --bg-primary: #080d1f;
+      --bg-secondary: #0a1128;
+
+      /* Glass morphism backgrounds with transparency */
+      --glass-bg: rgba(255, 255, 255, 0.08);
+      --glass-border: rgba(255, 255, 255, 0.18);
+      --glass-hover: rgba(255, 255, 255, 0.12);
+
+      /* Text colors for readability */
+      --text: #f0f4f8;
+      --text-muted: #a0aec0;
+
+      /* Accent colors - amber, blue, purple gradients */
+      --accent: #fbbf24;
+      --accent-2: #3b82f6;
+      --accent-3: #8b5cf6;
+      --accent-gradient: linear-gradient(135deg, #fbbf24, #3b82f6);
+      --accent-gradient-2: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      --accent-gradient-3: linear-gradient(135deg, #fbbf24, #8b5cf6);
+
+      /* Shadow depths for layering */
+      --shadow: rgba(0, 0, 0, 0.4);
+      --shadow-lg: rgba(0, 0, 0, 0.6);
+
+      /* Status colors for feedback */
+      --success: #10b981;
+      --warning: #f59e0b;
+      --error: #ef4444;
+    }
+
+    /* Light theme palette - triggered by .light class on html element */
+    html.light {
+      --bg-primary: #e8f0f8;
+      --bg-secondary: #d0e0f0;
+      --glass-bg: rgba(255, 255, 255, 0.5);
+      --glass-border: rgba(255, 255, 255, 0.8);
+      --glass-hover: rgba(255, 255, 255, 0.7);
+      --text: #1a202c;
+      --text-muted: #4a5568;
+      --shadow: rgba(0, 0, 0, 0.08);
+      --shadow-lg: rgba(0, 0, 0, 0.15);
+    }
+
+    /* ================================================
+       CSS RESET & BASE STYLES
+       Normalize browser inconsistencies
+       ================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    html, body {
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 
+                   Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      position: relative;
+    }
+
+    /* ================================================
+       ANIMATED BACKGROUND WITH GRADIENT ORBS
+       Creates depth and visual interest
+       ================================================ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(circle at 15% 20%, rgba(251,191,36,0.18) 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(59,130,246,0.18) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(139,92,246,0.12) 0%, transparent 50%);
+      animation: gradientShift 25s ease-in-out infinite;
+      z-index: -2;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { 
+        transform: scale(1) rotate(0deg); 
+      }
+      33% { 
+        transform: scale(1.1) rotate(120deg); 
+      }
+      66% { 
+        transform: scale(1.2) rotate(240deg); 
+      }
+    }
+
+    /* Subtle grid overlay pattern for texture */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0px, transparent 2px, transparent 4px),
+        repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0px, transparent 2px, transparent 4px);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* ================================================
+       GLASS MORPHISM UTILITY CLASSES
+       Reusable frosted glass effects
+       ================================================ */
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px) saturate(200%);
+      -webkit-backdrop-filter: blur(24px) saturate(200%);
+      border: 1.5px solid var(--glass-border);
+      box-shadow: 0 8px 32px var(--shadow),
+                  0 1px 0 0 rgba(255,255,255,0.2) inset,
+                  0 -1px 0 0 rgba(0,0,0,0.2) inset;
+    }
+
+    .glass-strong {
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(30px) saturate(200%);
+      -webkit-backdrop-filter: blur(30px) saturate(200%);
+      border: 2px solid rgba(255,255,255,0.25);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5),
+                  0 2px 0 0 rgba(255,255,255,0.25) inset,
+                  0 -2px 0 0 rgba(0,0,0,0.15) inset;
+    }
+
+    /* ================================================
+       TYPOGRAPHY & LINKS
+       ================================================ */
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: var(--accent);
+    }
+
+    /* Main content wrapper with max width */
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ================================================
+       HEADER & NAVIGATION STYLES
+       Sticky header with glass morphism effect
+       ================================================ */
+    header {
+      position: sticky;
+      top: 16px;
+      z-index: 50;
+      margin: 0 16px;
+      border-radius: 20px;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      transition: all 0.4s ease;
+      animation: slideDown 0.8s ease backwards;
+    }
+
+    @keyframes slideDown {
+      from {
+        transform: translateY(-120px);
+        opacity: 0;
+      }
+    }
+
+    /* Enhanced hover state for header */
+    header:hover {
+      background: rgba(255,255,255,0.14);
+      border-color: rgba(255,255,255,0.3);
+      box-shadow: 0 12px 48px rgba(0,0,0,0.6),
+                  0 2px 0 0 rgba(255,255,255,0.3) inset;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    /* Logo with gradient text and glow effect */
+    .logo {
+      font-family: "Big Shoulders Display", sans-serif;
+      font-weight: 900;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 12px rgba(251,191,36,0.4));
+      animation: logoGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes logoGlow {
+      0%, 100% { 
+        filter: drop-shadow(0 0 12px rgba(251,191,36,0.4)); 
+      }
+      50% { 
+        filter: drop-shadow(0 0 20px rgba(251,191,36,0.6)); 
+      }
+    }
+
+    /* Desktop navigation menu */
+    nav.desktop {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    nav.desktop a {
+      padding: 10px 18px;
+      border-radius: 12px;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    /* Animated background for nav links */
+    nav.desktop a::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    nav.desktop a:hover::before,
+    nav.desktop a.active::before {
+      opacity: 1;
+    }
+
+    nav.desktop a:hover,
+    nav.desktop a.active {
+      color: var(--accent);
+      text-shadow: 0 0 16px rgba(251,191,36,0.5);
+    }
+
+    /* Control buttons (theme toggle, mobile menu) */
+    .controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .mobile-toggle {
+      display: none;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(255,255,255,0.15);
+      color: var(--text-muted);
+      padding: 10px 16px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 13px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2),
+                  0 1px 0 rgba(255,255,255,0.15) inset;
+    }
+
+    .mobile-toggle:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: var(--accent);
+      color: var(--accent);
+      box-shadow: 0 0 24px rgba(251,191,36,0.3);
+    }
+
+    /* Responsive: show mobile menu button on small screens */
+    @media (max-width: 820px) {
+      nav.desktop { 
+        display: none; 
+      }
+      .mobile-toggle { 
+        display: inline-flex; 
+      }
+    }
+
+    /* ================================================
+       PAGE HEADER SECTION
+       Hero-style header with title and filters
+       ================================================ */
+    .page-header {
+      padding: 120px 24px 60px;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Large display title with gradient */
+    .page-title {
+      font-family: "Big Shoulders Display", sans-serif;
+      font-size: clamp(48px, 10vw, 96px);
+      font-weight: 900;
+      margin: 0 0 24px;
+      background: var(--accent-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: fadeInUp 0.8s ease backwards;
+      line-height: 0.95;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+    }
+
+    .page-subtitle {
+      font-size: 20px;
+      color: var(--text-muted);
+      max-width: 60ch;
+      margin: 0 auto 32px;
+      animation: fadeInUp 0.8s ease 0.2s backwards;
+      line-height: 1.7;
+    }
+
+    /* ================================================
+       PROJECT FILTER TABS
+       Interactive category filters
+       ================================================ */
+    .filter-tabs {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 32px;
+      animation: fadeInUp 0.8s ease 0.4s backwards;
+    }
+
+    .filter-tab {
+      padding: 12px 24px;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.06);
+      backdrop-filter: blur(12px);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2),
+                  0 1px 0 rgba(255,255,255,0.1) inset;
+    }
+
+    .filter-tab:hover,
+    .filter-tab.active {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(251,191,36,0.5);
+      color: var(--accent);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.3),
+                  0 0 20px rgba(251,191,36,0.2);
+      transform: translateY(-2px);
+    }
+
+    /* ================================================
+       PROJECTS SECTION & GRID LAYOUT
+       ================================================ */
+    section {
+      padding: 80px 24px;
+      position: relative;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 32px;
+      margin-top: 48px;
+    }
+
+    /* ================================================
+       PROJECT CARD COMPONENT
+       Featured card with image, content, and interactions
+       ================================================ */
+    .project-card {
+      padding: 0;
+      border-radius: 28px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(30px) saturate(200%);
+      border: 2px solid rgba(255,255,255,0.15);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4),
+                  0 2px 0 rgba(255,255,255,0.15) inset,
+                  0 -2px 0 rgba(0,0,0,0.1) inset;
+      transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    /* Stagger animation delay for each card */
+    .project-card:nth-child(1) { animation-delay: 0.1s; }
+    .project-card:nth-child(2) { animation-delay: 0.2s; }
+    .project-card:nth-child(3) { animation-delay: 0.3s; }
+    .project-card:nth-child(4) { animation-delay: 0.4s; }
+    .project-card:nth-child(5) { animation-delay: 0.5s; }
+    .project-card:nth-child(6) { animation-delay: 0.6s; }
+
+    /* Top border accent animation */
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: var(--accent-gradient);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+    }
+
+    .project-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    /* Enhanced hover state for cards */
+    .project-card:hover {
+      transform: translateY(-12px) scale(1.02);
+      background: rgba(255,255,255,0.12);
+      border-color: rgba(251,191,36,0.4);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.5),
+                  0 0 48px rgba(251,191,36,0.15),
+                  0 3px 0 rgba(255,255,255,0.2) inset;
+    }
+
+    /* Project thumbnail/image section */
+    .project-image {
+      width: 100%;
+      height: 220px;
+      background: linear-gradient(135deg, rgba(251,191,36,0.1), rgba(59,130,246,0.1));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      border-radius: 28px 28px 0 0;
+    }
+
+    /* Gradient overlay on image */
+    .project-image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.4) 100%);
+    }
+
+    /* SVG icon in project image */
+    .project-icon {
+      width: 80px;
+      height: 80px;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 4px 20px rgba(0,0,0,0.3));
+      transition: transform 0.4s ease;
+    }
+
+    .project-card:hover .project-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    /* Project card content section */
+    .project-content {
+      padding: 28px;
+    }
+
+    /* Metadata tags (category, type) */
+    .project-meta {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .meta-tag {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      font-weight: 700;
+      padding: 6px 12px;
+      background: rgba(251,191,36,0.15);
+      border-radius: 6px;
+      border: 1px solid rgba(251,191,36,0.3);
+      box-shadow: 0 0 12px rgba(251,191,36,0.2);
+    }
+
+    /* Project title */
+    .project-title {
+      font-size: 26px;
+      font-weight: 700;
+      margin: 0 0 12px;
+      color: var(--text);
+      transition: color 0.3s;
+      line-height: 1.2;
+    }
+
+    .project-card:hover .project-title {
+      color: var(--accent);
+    }
+
+    /* Project description */
+    .project-desc {
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+    /* Technology stack badges */
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .tech-badge {
+      padding: 6px 12px;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .tech-badge:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(251,191,36,0.3);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* Project statistics grid */
+    .project-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Project action links */
+    .project-links {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .project-link {
+      flex: 1;
+      padding: 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1.5px solid rgba(255,255,255,0.12);
+      text-align: center;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .project-link:hover {
+      background: rgba(255,255,255,0.1);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(251,191,36,0.2);
+    }
+
+    /* ================================================
+       UTILITY CLASSES
+       ================================================ */
+    .muted {
+      color: var(--text-muted);
+    }
+
+    /* Accessibility: visible focus indicator */
+    *:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 4px;
+    }
+
+    /* Respect user's motion preferences */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    /* ================================================
+       RESPONSIVE DESIGN - MOBILE & TABLET
+       ================================================ */
+    @media (max-width: 640px) {
+      .wrap { 
+        padding: 20px; 
+      }
+      header { 
+        margin: 0 12px; 
+        padding: 12px 16px;
+      }
+      section { 
+        padding: 60px 20px; 
+      }
+      .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+      .filter-tabs {
+        gap: 8px;
+      }
+      .filter-tab {
+        padding: 10px 16px;
+        font-size: 13px;
+      }
+      .page-header {
+        padding: 80px 20px 40px;
+      }
+      .project-stats {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+    }
+
+    /* ================================================
+       FOOTER STYLING
+       ================================================ */
+    footer {
+      padding: 48px 24px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 15px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(180deg, transparent, rgba(0,0,0,0.3));
+      margin-top: 80px;
+    }
+
+    footer a {
+      color: var(--accent);
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    footer a:hover {
+      color: var(--accent-2);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================================================
+       HEADER NAVIGATION
+       Sticky navigation with logo and menu items
+       ================================================ -->
+  <header class="wrap glass" role="banner">
+    <div class="brand">
+      <div class="logo">JEEVAN</div>
+      <div class="muted" style="font-weight:600;font-size:13px">Android & Full-Stack Developer</div>
+    </div>
+
+    <nav class="desktop" aria-label="Primary navigation">
+      <a href="home.html" class="navlink">Home</a>
+      <a href="about.html" class="navlink">About</a>
+      <a href="projects.html" class="navlink active">Projects</a>
+      <a href="contact.html" class="navlink">Contact</a>
+    </nav>
+
+    <div class="controls">
+      <button id="themeBtn" title="Toggle theme (T)" class="mobile-toggle" aria-label="Toggle dark/light theme">
+        Theme
+      </button>
+      <button id="mobileBtn" class="mobile-toggle" aria-label="Toggle mobile menu">
+        Menu
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu (hidden by default) -->
+  <div id="mobileMenu" style="display:none;margin:12px;border-radius:20px;padding:20px;max-width:1100px;margin-left:auto;margin-right:auto" class="glass-strong">
+    <nav style="display:flex;flex-direction:column;gap:10px" aria-label="Mobile navigation">
+      <a href="home.html" style="padding:14px 18px;border-radius:12px">Home</a>
+      <a href="about.html" style="padding:14px 18px;border-radius:12px">About</a>
+      <a href="projects.html" style="padding:14px 18px;border-radius:12px">Projects</a>
+      <a href="contact.html" style="padding:14px 18px;border-radius:12px">Contact</a>
+    </nav>
+  </div>
+
+  <!-- ================================================
+       PAGE HEADER WITH TITLE AND FILTERS
+       ================================================ -->
+  <div class="page-header">
+    <h1 class="page-title">My Projects</h1>
+    <p class="page-subtitle">
+      Real-world applications I've built from scratch. Each project taught me something valuable 
+      about software development, architecture, and user experience. From mobile apps to AI systems.
+    </p>
+
+    <!-- Filter Tabs for project categories -->
+    <div class="filter-tabs" role="tablist" aria-label="Project category filters">
+      <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true">
+        All Projects
+      </button>
+      <button class="filter-tab" data-filter="mobile" role="tab" aria-selected="false">
+        Mobile Apps
+      </button>
+      <button class="filter-tab" data-filter="web" role="tab" aria-selected="false">
+        Web Development
+      </button>
+      <button class="filter-tab" data-filter="ai" role="tab" aria-selected="false">
+        AI/ML
+      </button>
+      <button class="filter-tab" data-filter="tools" role="tab" aria-selected="false">
+        Tools & Research
+      </button>
+    </div>
+  </div>
+
+  <!-- ================================================
+       PROJECTS GRID SECTION
+       All projects displayed in responsive grid
+       ================================================ -->
+  <section class="wrap">
+    <div class="projects-grid" id="projectsGrid">
+
+      <!-- ============================================
+           PROJECT 1: JKFlixPlayer
+           OTT Streaming Android Application
+           ============================================ -->
+      <article class="project-card" data-category="mobile">
+        <div class="project-image">
+          <!-- Inline SVG icon for project -->
+          <svg class="project-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <!-- Phone screen shape -->
+            <rect width="80" height="60" x="10" y="20" rx="8" fill="url(#grad1)" opacity="0.3"/>
+            <!-- Play button -->
+            <circle cx="50" cy="50" r="18" fill="url(#grad1)"/>
+            <polygon points="45,42 45,58 58,50" fill="#080d1f"/>
+          </svg>
+        </div>
+        <div class="project-content">
+          <div class="project-meta">
+            <span class="meta-tag">Featured</span>
+            <span class="meta-tag">Android</span>
+          </div>
+          <h3 class="project-title">JKFlixPlayer</h3>
+          <p class="project-desc">
+            A full-featured OTT streaming application built with Kotlin and Android Studio. 
+            Features custom ExoPlayer integration for smooth video playback, user authentication 
+            system with Supabase, personalized watchlists, and Material Design 3 UI components. 
+            Implements real-time data synchronization and offline caching for seamless user experience.
+          </p>
+          <div class="tech-stack">
+            <span class="tech-badge">Kotlin</span>
+            <span class="tech-badge">Android</span>
+            <span class="tech-badge">ExoPlayer</span>
+            <span class="tech-badge">Supabase</span>
+            <span class="tech-badge">Material 3</span>
+            <span class="tech-badge">Jetpack Compose</span>
+          </div>
+          <div class="project-stats">
+            <div class="stat-item">
+              <span class="stat-value">10+</span>
+              <span class="stat-label">Features</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">5K+</span>
+              <span class="stat-label">Lines of Code</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">100%</span>
+              <span class="stat-label">Kotlin</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link" aria-label="View JKFlixPlayer source code">
+              <!-- GitHub icon -->
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+              View Code
+            </a>
+            <a href="#" class="project-link" aria-label="View live demo">
+              <!-- External link icon -->
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+                <path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+              </svg>
+              Live Demo
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ============================================
+           PROJECT 2: Face Attendance System
+           AI-powered attendance tracking
+           ============================================ -->
+      <article class="project-card" data-category="ai">
+        <div class="project-image" style="background:linear-gradient(135deg, rgba(59,130,246,0.1), rgba(139,92,246,0.1))">
+          <svg class="project-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <!-- Face outline -->
+            <circle cx="50" cy="40" r="18" fill="url(#grad2)" opacity="0.3"/>
+            <!-- Body/shoulders -->
+            <path d="M 50 58 Q 30 58 20 78 L 80 78 Q 70 58 50 58" fill="url(#grad2)" opacity="0.3"/>
+            <!-- Scan lines -->
+            <rect x="35" y="25" width="30" height="2" fill="url(#grad2)"/>
+            <rect x="35" y="32" width="30" height="2" fill="url(#grad2)"/>
+            <rect x="35" y="39" width="20" height="2" fill="url(#grad2)"/>
+          </svg>
+        </div>
+        <div class="project-content">
+          <div class="project-meta">
+            <span class="meta-tag">AI/ML</span>
+            <span class="meta-tag">Python</span>
+          </div>
+          <h3 class="project-title">Face Attendance System</h3>
+          <p class="project-desc">
+            Real-time face recognition attendance tracking system built with Python and OpenCV. 
+            Features automatic face detection, recognition using trained models, FastAPI backend 
+            for API endpoints, admin dashboard for attendance management, and PostgreSQL database 
+            via Supabase for data persistence. Generates automated attendance reports and analytics.
+          </p>
+          <div class="tech-stack">
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">OpenCV</span>
+            <span class="tech-badge">FastAPI</span>
+            <span class="tech-badge">Supabase</span>
+            <span class="tech-badge">PostgreSQL</span>
+            <span class="tech-badge">Face Recognition</span>
+          </div>
+          <div class="project-stats">
+            <div class="stat-item">
+              <span class="stat-value">95%</span>
+              <span class="stat-label">Accuracy</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">< 1s</span>
+              <span class="stat-label">Detection Time</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">Real-time</span>
+              <span class="stat-label">Processing</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+              View Code
+            </a>
+            <a href="#" class="project-link">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+              </svg>
+              Case Study
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ============================================
+           PROJECT 3: HackJeeva
+           Security research tool
+           ============================================ -->
+      <article class="project-card" data-category="tools">
+        <div class="project-image" style="background:linear-gradient(135deg, rgba(139,92,246,0.1), rgba(251,191,36,0.1))">
+          <svg class="project-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <!-- Terminal window -->
+            <rect x="15" y="25" width="70" height="50" rx="4" fill="none" stroke="url(#grad3)" stroke-width="3"/>
+            <!-- Code lines -->
+            <rect x="20" y="30" width="60" height="2" fill="url(#grad3)" opacity="0.6"/>
+            <rect x="20" y="37" width="50" height="2" fill="url(#grad3)" opacity="0.6"/>
+            <rect x="20" y="44" width="55" height="2" fill="url(#grad3)" opacity="0.6"/>
+            <rect x="20" y="51" width="45" height="2" fill="url(#grad3)" opacity="0.6"/>
+            <rect x="20" y="58" width="58" height="2" fill="url(#grad3)" opacity="0.6"/>
+            <!-- Cursor -->
+            <circle cx="50" cy="65" r="2" fill="url(#grad3)"/>
+          </svg>
+        </div>
+        <div class="project-content">
+          <div class="project-meta">
+            <span class="meta-tag">Security</span>
+            <span class="meta-tag">Research</span>
+          </div>
+          <h3 class="project-title">HackJeeva</h3>
+          <p class="project-desc">
+            Keystroke monitoring and logging tool built for cybersecurity research and education. 
+            Developed in Python to understand system-level interactions, input handling, and security 
+            patterns. Features real-time keystroke capture, pattern analysis, and detailed logging. 
+            Built for educational purposes to learn about system security and ethical hacking concepts.
+          </p>
+          <div class="tech-stack">
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">System Programming</span>
+            <span class="tech-badge">Security</span>
+            <span class="tech-badge">Logging</span>
+          </div>
+          <div class="project-stats">
+            <div class="stat-item">
+              <span class="stat-value">Real-time</span>
+              <span class="stat-label">Capture</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">Low</span>
+              <span class="stat-label">Overhead</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">Educational</span>
+              <span class="stat-label">Purpose</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+              </svg>
+              Learn More
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ============================================
+           PROJECT 4: Gesture Recognition System
+           Computer vision ML project
+           ============================================ -->
+      <article class="project-card" data-category="ai">
+        <div class="project-image" style="background:linear-gradient(135deg, rgba(251,191,36,0.1), rgba(139,92,246,0.1))">
+          <svg class="project-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <!-- Hand gesture skeleton -->
+            <path d="M 50 65 L 50 45 M 50 45 L 35 40 M 50 45 L 65 40 M 50 45 L 45 25 M 50 45 L 55 25" 
+                  stroke="url(#grad4)" stroke-width="4" stroke-linecap="round" fill="none"/>
+            <!-- Joint points -->
+            <circle cx="50" cy="65" r="5" fill="url(#grad4)"/>
+            <circle cx="45" cy="25" r="4" fill="url(#grad4)"/>
+            <circle cx="55" cy="25" r="4" fill="url(#grad4)"/>
+            <circle cx="35" cy="40" r="4" fill="url(#grad4)"/>
+            <circle cx="65" cy="40" r="4" fill="url(#grad4)"/>
+          </svg>
+        </div>
+        <div class="project-content">
+          <div class="project-meta">
+            <span class="meta-tag">Computer Vision</span>
+            <span class="meta-tag">ML</span>
+          </div>
+          <h3 class="project-title">Gesture Recognition System</h3>
+          <p class="project-desc">
+            Computer vision-based gesture recognition using machine learning and OpenCV. 
+            Implements real-time hand gesture detection and classification using trained neural networks. 
+            Features include hand tracking, gesture pattern recognition, and custom gesture training. 
+            Built with TensorFlow for model training and OpenCV for real-time processing.
+          </p>
+          <div class="tech-stack">
+            <span class="tech-badge">Python</span>
+            <span class="tech-badge">OpenCV</span>
+            <span class="tech-badge">TensorFlow</span>
+            <span class="tech-badge">NumPy</span>
+            <span class="tech-badge">ML</span>
+          </div>
+          <div class="project-stats">
+            <div class="stat-item">
+              <span class="stat-value">8+</span>
+              <span class="stat-label">Gestures</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">90%</span>
+              <span class="stat-label">Accuracy</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">30 FPS</span>
+              <span class="stat-label">Processing</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+              View Code
+            </a>
+            <a href="#" class="project-link">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M5 3.5h6A1.5 1.5 0 0 1 12.5 5v6a1.5 1.5 0 0 1-1.5 1.5H5A1.5 1.5 0 0 1 3.5 11V5A1.5 1.5 0 0 1 5 3.5z"/>
+              </svg>
+              Demo Video
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ============================================
+           PROJECT 5: Math Creations Website
+           Creative agency website
+           ============================================ -->
+      <article class="project-card" data-category="web">
+        <div class="project-image" style="background:linear-gradient(135deg, rgba(59,130,246,0.1), rgba(251,191,36,0.1))">
+          <svg class="project-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="grad5" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#fbbf24;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <!-- Browser window -->
+            <rect x="15" y="20" width="70" height="60" rx="4" fill="none" stroke="url(#grad5)" stroke-width="3"/>
+            <!-- Content blocks -->
+            <rect x="20" y="28" width="20" height="15" rx="2" fill="url(#grad5)" opacity="0.4"/>
+            <rect x="45" y="28" width="30" height="3" rx="1" fill="url(#grad5)" opacity="0.6"/>
+            <rect x="45" y="35" width="25" height="3" rx="1" fill="url(#grad5)" opacity="0.6"/>
+            <rect x="20" y="50" width="60" height="3" rx="1" fill="url(#grad5)" opacity="0.6"/>
+            <rect x="20" y="57" width="55" height="3" rx="1" fill="url(#grad5)" opacity="0.6"/>
+            <rect x="20" y="64" width="58" height="3" rx="1" fill="url(#grad5)" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="project-content">
+          <div class="project-meta">
+            <span class="meta-tag">Website</span>
+            <span class="meta-tag">Frontend</span>
+          </div>
+          <h3 class="project-title">Math Creations</h3>
+          <p class="project-desc">
+            Creative agency website built with modern web technologies. Features custom scroll animations, 
+            responsive design that works across all devices, interactive portfolio gallery, smooth page 
+            transitions, and optimized performance. Built with vanilla JavaScript, HTML5, and CSS3 
+            for maximum compatibility and speed.
+          </p>
+          <div class="tech-stack">
+            <span class="tech-badge">HTML5</span>
+            <span class="tech-badge">CSS3</span>
+            <span class="tech-badge">JavaScript</span>
+            <span class="tech-badge">Responsive</span>
+            <span class="tech-badge">Animations</span>
+          </div>
+          <div class="project-stats">
+            <div class="stat-item">
+              <span class="stat-value">98</span>
+              <span class="stat-label">Lighthouse</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">< 2s</span>
+              <span class="stat-label">Load Time</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">Responsive</span>
+              <span class="stat-label">Design</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+                <path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+              </svg>
+              Visit Site
+            </a>
+            <a href="#" class="project-link">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+              Code
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- ============================================
+           PROJECT 6: UBPL1947 E-commerce
+           Full-featured online store
+           ============================================ -->
+      <article class="project-card" data-category="web">
+        <div class="project-image" style="background:linear-gradient(135deg, rgba(139,92,246,0.1), rgba(59,130,246,0.1))">
+          <svg class="project-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="grad6" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <!-- Shopping cart -->
+            <path d="M 25 35 L 30 35 L 35 65 L 70 65 L 75 45 L 35 45" 
+                  stroke="url(#grad6)" stroke-width="3" fill="none" stroke-linejoin="round"/>
+            <!-- Wheels -->
+            <circle cx="40" cy="75" r="4" fill="url(#grad6)"/>
+            <circle cx="65" cy="75" r="4" fill="url(#grad6)"/>
+            <!-- Product lines -->
+            <rect x="40" y="25" width="35" height="3" rx="1" fill="url(#grad6)" opacity="0.6"/>
+            <rect x="40" y="32" width="30" height="3" rx="1" fill="url(#grad6)" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="project-content">
+          <div class="project-meta">
+            <span class="meta-tag">E-commerce</span>
+            <span class="meta-tag">React</span>
+          </div>
+          <h3 class="project-title">UBPL1947</h3>
+          <p class="project-desc">
+            Full-featured e-commerce platform built with React and TypeScript. Features include 
+            product catalog with filtering and search, shopping cart with persistent state, 
+            secure checkout flow, payment gateway integration, order management system, and 
+            responsive design built with Tailwind CSS. Optimized for SEO and performance.
+          </p>
+          <div class="tech-stack">
+            <span class="tech-badge">React</span>
+            <span class="tech-badge">TypeScript</span>
+            <span class="tech-badge">Tailwind CSS</span>
+            <span class="tech-badge">REST API</span>
+            <span class="tech-badge">Redux</span>
+          </div>
+          <div class="project-stats">
+            <div class="stat-item">
+              <span class="stat-value">50+</span>
+              <span class="stat-label">Products</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">Fast</span>
+              <span class="stat-label">Checkout</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">Mobile</span>
+              <span class="stat-label">First</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="#" class="project-link">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"/>
+                <path d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"/>
+              </svg>
+              Live Site
+            </a>
+            <a href="#" class="project-link">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+              </svg>
+              Repository
+            </a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ================================================
+       FOOTER
+       ================================================ -->
+  <footer>
+    <div>© <span id="year"></span> Jeevan Gowda • Self-Taught Developer from Bangalore</div>
+    <div style="margin-top:8px;font-size:13px">
+      Built with ❤️ using Clear Glass UI • 
+      <a href="https://github.com/jeevangowda">GitHub</a> • 
+      <a href="mailto:jeevangowda76@gmail.com">Email</a> • 
+      <a href="https://linkedin.com/in/jeevangowda">LinkedIn</a>
+    </div>
+  </footer>
+
+  <!-- ================================================
+       JAVASCRIPT - INTERACTIVITY & FUNCTIONALITY
+       ================================================ -->
+  <script>
+    // ================================================
+    // DOM HELPER FUNCTIONS
+    // ================================================
+    const $ = (selector) => document.querySelector(selector);
+    const $$ = (selector) => Array.from(document.querySelectorAll(selector));
+
+    // Set current year in footer
+    $('#year').textContent = new Date().getFullYear();
+
+    // ================================================
+    // THEME TOGGLE FUNCTIONALITY
+    // Switches between dark and light modes
+    // ================================================
+    const html = document.documentElement;
+    const themeBtn = $('#themeBtn');
+
+    // Check for stored theme preference
+    const storedTheme = localStorage.getItem('site-theme');
+    if(storedTheme === 'light') {
+      html.classList.add('light');
+    }
+
+    themeBtn.addEventListener('click', () => {
+      const isLight = html.classList.toggle('light');
+      localStorage.setItem('site-theme', isLight ? 'light' : 'dark');
+
+      // Optional: Add haptic feedback on mobile
+      if(navigator.vibrate) {
+        navigator.vibrate(50);
+      }
+    });
+
+    // ================================================
+    // MOBILE MENU TOGGLE
+    // Show/hide navigation on mobile devices
+    // ================================================
+    const mobileBtn = $('#mobileBtn');
+    const mobileMenu = $('#mobileMenu');
+
+    mobileBtn.addEventListener('click', () => {
+      const isOpen = mobileMenu.style.display === 'block';
+      mobileMenu.style.display = isOpen ? 'none' : 'block';
+
+      // Update button text
+      mobileBtn.textContent = isOpen ? 'Menu' : 'Close';
+
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = isOpen ? '' : 'hidden';
+    });
+
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+    // Close mobile menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if(!mobileMenu.contains(e.target) && !mobileBtn.contains(e.target)) {
+        if(mobileMenu.style.display === 'block') {
+          mobileMenu.style.display = 'none';
+          mobileBtn.textContent = 'Menu';
+          document.body.style.overflow = '';
+        }
+      }
+    });
+
+    // ================================================
+    // PROJECT FILTERING SYSTEM
+    // Filter projects by category (All, Mobile, Web, AI, Tools)
+    // ================================================
+    const filterTabs = $$('.filter-tab');
+    const projectCards = $$('.project-card');
+
+    filterTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        // Update active state on tabs
+        filterTabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+
+        // Get selected filter category
+        const filter = tab.dataset.filter;
+
+        // Filter and animate project cards
+        projectCards.forEach((card, index) => {
+          const category = card.dataset.category;
+
+          if(filter === 'all' || category === filter) {
+            card.style.display = 'block';
+
+            // Re-trigger entrance animation with stagger
+            card.style.animation = 'none';
+            setTimeout(() => {
+              card.style.animation = '';
+              card.style.animationDelay = (index * 0.1) + 's';
+            }, 10);
+          } else {
+            // Fade out before hiding
+            card.style.animation = 'fadeOut 0.3s ease forwards';
+            setTimeout(() => {
+              card.style.display = 'none';
+            }, 300);
+          }
+        });
+
+        // Haptic feedback
+        if(navigator.vibrate) {
+          navigator.vibrate(30);
+        }
+      });
+    });
+
+    // Add fadeOut animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeOut {
+        to {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // ================================================
+    // KEYBOARD SHORTCUTS
+    // Enhance accessibility and power user experience
+    // ================================================
+    window.addEventListener('keydown', (e) => {
+      // Don't trigger if user is typing in an input
+      if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        return;
+      }
+
+      // T key: Toggle theme
+      if(e.key === 't' && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        themeBtn.click();
+      }
+
+      // Numbers 1-5: Switch filter tabs
+      if(e.key >= '1' && e.key <= '5' && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        const index = parseInt(e.key) - 1;
+        if(filterTabs[index]) {
+          filterTabs[index].click();
+        }
+      }
+
+      // M key: Toggle mobile menu
+      if(e.key === 'm' && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        mobileBtn.click();
+      }
+    });
+
+    // ================================================
+    // SMOOTH SCROLL FOR ANCHOR LINKS
+    // Improves navigation UX
+    // ================================================
+    $$('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        const href = anchor.getAttribute('href');
+        if(href === '#') return;
+
+        const target = $(href);
+        if(!target) return;
+
+        e.preventDefault();
+
+        // Calculate scroll position accounting for header
+        const header = $('header');
+        const offset = header ? header.offsetHeight + 20 : 20;
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+
+        window.scrollTo({
+          top: top,
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // ================================================
+    // PERFORMANCE MONITORING (DEV ONLY)
+    // Log performance metrics to console
+    // ================================================
+    if(window.PerformanceObserver) {
+      const perfObserver = new PerformanceObserver((list) => {
+        for(const entry of list.getEntries()) {
+          if(entry.entryType === 'paint') {
+            console.log(`${entry.name}: ${entry.startTime.toFixed(2)}ms`);
+          }
+        }
+      });
+
+      try {
+        perfObserver.observe({entryTypes: ['paint']});
+      } catch(e) {
+        // Browser doesn't support paint timing
+      }
+    }
+
+    // ================================================
+    // CONSOLE EASTER EGG
+    // Fun message for developers who inspect
+    // ================================================
+    console.log('%c👋 Hey there, Developer!', 'font-size: 24px; font-weight: bold; color: #fbbf24; text-shadow: 0 0 10px rgba(251,191,36,0.5);');
+    console.log('%cInterested in the code?', 'font-size: 16px; color: #a0aec0;');
+    console.log('%cCheck out my GitHub: https://github.com/jeevangowda', 'font-size: 14px; color: #3b82f6;');
+    console.log('%c
+Built with Glass UI Design System', 'font-size: 12px; color: #4a5568; font-style: italic;');
+    console.log('%cKeyboard Shortcuts: T (theme) | 1-5 (filters) | M (menu)', 'font-size: 11px; color: #8b5cf6;');
+
+    // ================================================
+    // ANALYTICS PLACEHOLDER
+    // Add your analytics tracking here
+    // ================================================
+    /*
+    // Example: Google Analytics
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'GA_MEASUREMENT_ID');
+    */
+  </script>
+</body>
+</html>
